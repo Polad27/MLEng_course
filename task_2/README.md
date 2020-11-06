@@ -1,6 +1,8 @@
 # task_2
 ML engineering tasks
 
+Before sharing task ensure that permission is given by Google drive owner specially for other gdrive user
+
 Reproduce:  
 ```
 dvc repro task_2/dvc.yaml
