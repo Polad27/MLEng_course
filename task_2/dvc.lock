@@ -1,0 +1,20 @@
+data:
+  cmd: python3 data_prepare.py
+  outs:
+  - path: prepared_data.csv
+    md5: 116391bb9ea2a58e9316cd9f19923ee8
+training:
+  cmd: python3 regression.py
+  deps:
+  - path: prepared_data.csv
+    md5: 116391bb9ea2a58e9316cd9f19923ee8
+  params:
+    params.yaml:
+      scaler: StandardScaler
+  outs:
+  - path: model.pkl
+    md5: a70111a9ad97a296e8918c78a7cafd16
+  - path: plots.json
+    md5: d74d7c752e9bff7bd0119354e001650b
+  - path: scores.json
+    md5: 09a9000b4d84f75ec89412ed1a3ce030

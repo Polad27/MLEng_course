@@ -1,1 +1,5 @@
 /AirQualityUCI.csv
+/prepared_data.csv
+/scores.json
+/plots.json
+/model.pkl
