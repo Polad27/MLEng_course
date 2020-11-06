@@ -10,11 +10,11 @@ training:
     md5: 116391bb9ea2a58e9316cd9f19923ee8
   params:
     params.yaml:
-      scaler: StandardScaler
+      scaler: MaxAbsScaler
   outs:
   - path: model.pkl
-    md5: a70111a9ad97a296e8918c78a7cafd16
+    md5: 752f9d9f00b1237a83518679d1160238
   - path: plots.json
-    md5: d74d7c752e9bff7bd0119354e001650b
+    md5: d4baeb58de7f27b0971a89cd57fd018d
   - path: scores.json
-    md5: 09a9000b4d84f75ec89412ed1a3ce030
+    md5: 15544a765191f3b5ecb51e682094a22c
