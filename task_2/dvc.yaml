@@ -1,0 +1,17 @@
+stages:
+  data:
+    cmd: python3 data_prepare.py
+    outs:
+      - prepared_data.csv
+  training:
+    cmd: python3 regression.py
+    params:
+      - scaler
+    deps:
+      - prepared_data.csv
+    outs:
+      - model.pkl
+    metrics:
+      - scores.json
+    plots:
+      - plots.json
