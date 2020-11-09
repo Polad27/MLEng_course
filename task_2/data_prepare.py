@@ -1,3 +1,4 @@
+'''This script prepares data'''
 import pandas as pd
 
 df = pd.read_csv('AirQualityUCI.csv', sep=';', na_values=-200, decimal=',')\

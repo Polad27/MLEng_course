@@ -1,56 +1,50 @@
-import numpy as np
-import pandas as pd
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+'''This script performs regression fitting'''
 import json
-import yaml
 import pickle
+import yaml
+import pandas as pd
 
-from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet, SGDRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
-from sklearn.model_selection import cross_val_score, GridSearchCV, train_test_split
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_absolute_error
 
 def get_scaler(name):
+    '''Returns suitable scaler'''
     if name == 'StandardScaler':
         return StandardScaler()
-    elif name == 'MinMaxScaler':
+    if name == 'MinMaxScaler':
         return MinMaxScaler()
-    elif name == 'MaxAbsScaler':
+    if name == 'MaxAbsScaler':
         return MaxAbsScaler()
-    else:
-        raise('Unsuitable name')
+    raise 'Unsuitable name'
 
-def metrics(real, predicted):
-    # plt.scatter(x=predicted, y=real)
-    # plt.show()
-    return({'adj_r2': r2_score(real, predicted), 
-            'MAE': mean_absolute_error(real, predicted)})
+def metrics(y_true, y_pred):
+    '''Calculate metrics'''
+    return {'adj_r2': r2_score(y_true, y_pred),
+            'MAE': mean_absolute_error(y_true, y_pred)}
 
 params = yaml.safe_load(open('params.yaml'))
 scaler = get_scaler(params['scaler'])
 
 df = pd.read_csv('prepared_data.csv')
 
-X_train, X_test, y_train, y_test = train_test_split(df.drop('C6H6(GT)', axis=1), df['C6H6(GT)'])
+X_train, X_test, y_train, y_test = train_test_split(df.drop('C6H6(GT)', axis=1),
+                                                    df['C6H6(GT)'])
 
 lm = LinearRegression()
 lm = lm.fit(scaler.fit_transform(X_train), y_train)
 
 predicted = lm.predict(scaler.transform(X_test))
-real = y_test
-
-
 
 with open('scores.json', 'w') as f:
-    json.dump(metrics(real, predicted), f)
+    json.dump(metrics(y_test, predicted), f)
 
 with open('plots.json', 'w') as f:
     proc_dict = {'proc': [{
         'predicted': p,
         'real': r,
-        } for p, r in zip(predicted, real)
+        } for p, r in zip(predicted, y_test)
     ]}
     json.dump(proc_dict, f)
 
