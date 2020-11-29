@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: mlflow_dockerfile
+    network_mode: "host"
+    volumes:
+      - ./volume:/home/mlflow/
+  scripts:
+    build:
+      context: .
+      dockerfile: script_dockerfile
+    volumes:
+        - ./volume:/home/scripts/

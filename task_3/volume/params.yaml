@@ -1,0 +1,10 @@
+data_preparation:
+  drop_columns:
+    - 'Date'
+    - 'Time'
+    - 'Unnamed: 15'
+    - 'Unnamed: 16'
+    - 'NMHC(GT)'
+  na_values: -200
+
+scaler: 'StandardScaler'

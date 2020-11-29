@@ -1,0 +1,19 @@
+FROM ubuntu:18.04
+
+ARG USER_ID
+ARG GROUP_ID
+
+COPY requirements.txt .
+
+RUN apt -y update
+RUN apt -y install build-essential zlib1g-dev libncurses5-dev libgdbm-dev \
+                   libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
+RUN apt -y install python3.8 python3-pip
+RUN pip3 install mlflow
+RUN addgroup --gid $GROUP_ID mlflow
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID mlflow
+USER mlflow
+WORKDIR /home/mlflow/
+CMD export LC_ALL=C.UTF-8 && \
+    export LANG=C.UTF-8 && \
+    mlflow ui

@@ -1,0 +1,18 @@
+FROM ubuntu:18.04
+
+ARG USER_ID
+ARG GROUP_ID
+
+COPY requirements.txt .
+
+RUN apt -y update
+RUN apt -y install build-essential zlib1g-dev libncurses5-dev libgdbm-dev \
+                   libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
+RUN apt -y install python3.8 python3-pip
+RUN pip3 install -r requirements.txt
+RUN addgroup --gid $GROUP_ID scripts
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID scripts
+USER scripts
+WORKDIR /home/scripts/
+CMD python3 data_prepare.py && \
+    python3 regression.py
