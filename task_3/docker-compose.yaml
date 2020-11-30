@@ -1,6 +1,5 @@
 version: "3.8"
 services:
-
   mlflow:
     build:
       context: .
@@ -20,3 +19,4 @@ services:
       dockerfile: script_dockerfile
     volumes:
         - ./volume:/home/scripts/
+    restart: on-failure
