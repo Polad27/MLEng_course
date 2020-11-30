@@ -1,13 +1,20 @@
 version: "3.8"
 services:
+
   mlflow:
     build:
       context: .
       dockerfile: mlflow_dockerfile
-    network_mode: "host"
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
     volumes:
       - ./volume:/home/mlflow/
+
   scripts:
+    depends_on:
+      - mlflow
     build:
       context: .
       dockerfile: script_dockerfile

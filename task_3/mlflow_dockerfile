@@ -16,4 +16,5 @@ USER mlflow
 WORKDIR /home/mlflow/
 CMD export LC_ALL=C.UTF-8 && \
     export LANG=C.UTF-8 && \
-    mlflow ui
+    mlflow server --host 0.0.0.0
+

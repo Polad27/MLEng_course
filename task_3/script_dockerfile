@@ -14,5 +14,6 @@ RUN addgroup --gid $GROUP_ID scripts
 RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID scripts
 USER scripts
 WORKDIR /home/scripts/
-CMD python3 data_prepare.py && \
+CMD export GIT_PYTHON_REFRESH=quiet && \
+    python3 data_prepare.py && \
     python3 regression.py

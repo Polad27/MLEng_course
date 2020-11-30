@@ -9,7 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error
-from mlflow import log_metric, log_param, log_artifact
+from mlflow import log_metric, log_param, log_artifact, set_tracking_uri
 
 
 def get_scaler(name):
@@ -52,7 +52,8 @@ if __name__ == "__main__":
     params = yaml.safe_load(open('params.yaml'))
     scaler_name = params['scaler']
     scaler = get_scaler(scaler_name)
-
+    server = 'http://mlflow:5000'
+    set_tracking_uri(server)
     log_param('Used Scaler', scaler)
 
     X_train, X_test, y_train, y_test = train_test_split(df.drop('C6H6(GT)', axis=1),
