@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: airflow_scheduler_dockerfile
+    volumes:
+        - ./volume:/home/btc_forecaster/
+  
+  ui:
+    depends_on:
+      - scheduler
+    build:
+      context: .
+      dockerfile: airflow_ui_dockerfile
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./volume:/home/btc_forecaster/
+    restart: on-failure

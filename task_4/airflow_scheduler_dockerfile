@@ -1,0 +1,31 @@
+FROM ubuntu:18.04
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8 
+
+ARG USER_ID
+ARG GROUP_ID
+
+COPY requirements.txt .
+
+RUN apt -y update
+RUN apt -y install curl python3.8 python3-pip
+RUN pip3 install -r requirements.txt
+
+RUN addgroup --gid $GROUP_ID btc_forecaster
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID btc_forecaster
+
+USER btc_forecaster
+WORKDIR /home/btc_forecaster
+
+CMD airflow db init && \
+    airflow users create --username admin \
+						 --firstname Polad \
+						 --lastname Babashev \
+						 --role Admin \
+						 --email lol@kek.heh \
+						 --password 12345 && \
+	mkdir airflow/dags && \
+	cp DAG.py airflow/dags && \
+	python3 airflow/dags/DAG.py && \
+	airflow scheduler

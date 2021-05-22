@@ -1,0 +1,6 @@
+apache-airflow
+matplotlib
+pandas
+prophet
+scikit-learn
+yfinance
