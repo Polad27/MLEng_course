@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block body %}
+    {{ super() }}
+    {% if plot %}
+        <img src="{{ url_for('static', filename='plot.png') }}">
+    {% endif %}
+    {{ df | safe}}
+{% endblock %}

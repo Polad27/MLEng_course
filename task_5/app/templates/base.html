@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+    {% block body %}
+        <form method="post" action="/" name="form">
+            <h1>Predicting price for BTC</h1>
+            <label>Choose forecast horizon</label>
+            <select id="forecast_steps" name="forecast_steps">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <br>
+            <br>
+            <label>Plot graph?</label>
+            <select id="plot" name="plot">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <br>
+            <br>
+            <label>Retrain model?</label>
+            <select id="retrain" name="retrain">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <input type="submit" name="Go" value="Go"/>
+        </form>
+    {% endblock %}
+    </body>
+</html>
